@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des comptes</title>
+</head>
+<body>
+    <h1>Liste des comptes</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="client_id">ID du client :</label>
+        <input type="text" name="client_id" id="client_id">
+        <button type="submit">Rechercher</button>
+    </form>
+    {% if client_id %}
+        <h2>Comptes associés à l'ID du client {{ client_id }} :</h2>
+        {% if comptes %}
+            <ul>
+                {% for compte in comptes %}
+                    <li>IBAN : {{ compte.0 }}, Solde : {{ compte.1 }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ message }}</p>
+        {% endif %}
+    {% endif %}
+
+</body>
+</html>

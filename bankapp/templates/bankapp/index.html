@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Affichage des données</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/test.css' %}">
+</head>
+<body>
+    <style>
+    h1 {
+        background-image: url('https://th.bing.com/th/id/R.13cecc35dba79c66b40e2d5eb7c08d0a?rik=%2bb9l1WqXeTlXqw&riu=http%3a%2f%2fwallpapercave.com%2fwp%2flrKU8Nu.jpg&ehk=1UMWjVQlpxRFRQsrqYk%2b1nuelS6VrRYX8rM1J4hiJq0%3d&risl=&pid=ImgRaw&r=0');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        padding: 10px;
+        color: black;
+        text-align: center;
+        border: 3px solid black;
+
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+</style>
+
+<h1>Clients</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Sexe</th>
+        <th>Email</th>
+        <th>Nom d'utilisateur</th>
+        <th>Mot de passe</th>
+    </tr>
+    {% for client in clientelle %}
+    <tr>
+        <td>{{ client.id }}</td>
+        <td>{{ client.nom }}</td>
+        <td>{{ client.prenom }}</td>
+        <td>{{ client.sexe }}</td>
+        <td>{{ client.email }}</td>
+        <td>{{ client.nom_utilisateur }}</td>
+        <td>{{ client.mdp }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<style>
+    .centered-button {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .styled-button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .styled-button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+
+
+<form method="post" action="{% url 'nouveau_client' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="centered-button">
+        <button type="submit" class="styled-button">Ajouter le client</button>
+    </div>
+</form>
+
+#_________________________________________________________________________________________________________________________#
+
+<style>
+    .centered-heading {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .styled-table th,
+    .styled-table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .styled-button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .styled-button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<h1 class="centered-heading">Comptes</h1>
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>IBAN</th>
+            <th>ID CLIENT ASSOCIÉ</th>
+            <th>DATE CREATION DU COMPTE</th>
+            <th>SOLDE DU COMPTE</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for compte in comptes %}
+            <tr>
+                <td>{{ compte.IBAN }}</td>
+                <td>{{ compte.client }}</td>
+                <td>{{ compte.date }}</td>
+                <td>{{ compte.solde }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<form method="post" action="{% url 'ajout_compte' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="centered-button">
+        <button type="submit" class="styled-button">Nouveau Compte</button>
+    </div>
+</form>
+
+
+#_________________________________________________________________________________________________________________________#
+
+
+        <h1> Suppression Client </h1>
+
+
+</style>
+
+<div class="centered-form">
+    <form class="styled-form" action="{% url 'execute_sql' %}" method="post">
+        {% csrf_token %}
+        <label for="id_input">ID:</label>
+        <input type="text" id="id_input" name="id">
+        <button type="submit">Exécuter SQL</button>
+    </form>
+</div>
+
+
+#_________________________________________________________________________________________________________________________#
+
+
+        <h1>Depot</h1>
+
+        <style>
+    .centered-form {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .styled-form {
+        display: inline-block;
+        text-align: left;
+    }
+
+    .styled-form label {
+        font-weight: bold;
+    }
+
+    .styled-form input[type="text"],
+    .styled-form input[type="number"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        width: 200px;
+    }
+
+    .styled-form button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .styled-form button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="centered-form">
+    <form class="styled-form" method="post" action="{% url 'depot' %}">
+        {% csrf_token %}
+        <label for="iban">IBAN :</label>
+        <input type="text" id="iban" name="iban" required>
+
+        <label for="montant">Montant :</label>
+        <input type="number" id="montant" name="montant" step="0.01" required>
+
+        <button type="submit">Mettre à jour le solde</button>
+    </form>
+</div>
+
+
+#_________________________________________________________________________________________________________________________#
+
+
+
+        <h1>Retrait</h1>
+
+</style>
+
+<div class="centered-form">
+    <form class="styled-form" method="post" action="{% url 'retrait' %}">
+        {% csrf_token %}
+        <label for="iban">IBAN :</label>
+        <input type="text" id="iban" name="iban" required>
+
+        <label for="montant">Montant :</label>
+        <input type="number" id="montant" name="montant" step="0.01" required>
+
+        <button type="submit">Mettre à jour le solde</button>
+    </form>
+</div>
+
+
+
+
+
+#_________________________________________________________________________________________________________________________#
+
+
+            <h1>Liste des comptes</h1>
+
+</style>
+
+<style>
+
+.centered-form {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.centered-form form {
+    display: inline-block;
+    text-align: center;
+}
+
+.centered-form label {
+    font-weight: bold;
+}
+
+.centered-form input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 200px;
+}
+
+.centered-form button[type="submit"] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.centered-form button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+</style>
+<div class="centered-form">
+        <form method="post" action="{% url 'rechercher_comptes' %}">
+            {% csrf_token %}
+            <label for="client_id">ID du client :</label>
+            <input type="text" name="client_id" id="client_id">
+            <button type="submit">Chercher</button>
+        </form>
+</div>
+
+
+
+#_________________________________________________________________________________________________________________________#
+
+
+        <h1> Versement</h1>
+<style>
+    .centered-form {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .styled-form {
+        display: inline-block;
+        text-align: left;
+    }
+
+    .styled-form label {
+        font-weight: bold;
+    }
+
+    .styled-form input[type="text"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        width: 200px;
+        margin-bottom: 10px;
+    }
+
+    .styled-form input[type="submit"] {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        margin: 0 auto;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .styled-form input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+
+#_________________________________________________________________________________________________________________________#
+
+
+
+<div class="centered-form">
+    <form class="styled-form" method="post" action="{% url 'versement' %}">
+        {% csrf_token %}
+        <label for="iban_source">IBAN Source:</label>
+        <input type="text" id="iban_source" name="iban_source">
+
+        <label for="iban_cible">IBAN Cible:</label>
+        <input type="text" id="iban_cible" name="iban_cible">
+
+        <label for="montant">Montant:</label>
+        <input type="text" id="montant" name="montant">
+
+        <input type="submit" value="Déposer">
+    </form>
+</div>
+
+
+
+    </ul>
+
+</body>
+</html>
