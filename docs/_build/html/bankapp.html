@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bankapp package &mdash; Documentation Ci_CD 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=05dadb3a"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=d99ca74e"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="bankapp.migrations package" href="bankapp.migrations.html" />
+    <link rel="prev" title="bank package" href="bank.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Ci_CD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">bank</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bank.html">bank package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">bankapp package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bankapp.migrations.html">bankapp.migrations package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-bankapp.admin">bankapp.admin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bankapp-apps-module">bankapp.apps module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.apps.BankappConfig"><code class="docutils literal notranslate"><span class="pre">BankappConfig</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bankapp-forms-module">bankapp.forms module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.forms.ClientForm"><code class="docutils literal notranslate"><span class="pre">ClientForm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.forms.CompteForm"><code class="docutils literal notranslate"><span class="pre">CompteForm</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bankapp-models-module">bankapp.models module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.models.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.models.Compte"><code class="docutils literal notranslate"><span class="pre">Compte</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.models.Personnel"><code class="docutils literal notranslate"><span class="pre">Personnel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.models.Transaction"><code class="docutils literal notranslate"><span class="pre">Transaction</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-bankapp.tests">bankapp.tests module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bankapp-urls-module">bankapp.urls module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.urls.urlpatterns"><code class="docutils literal notranslate"><span class="pre">urlpatterns</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bankapp-views-module">bankapp.views module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.ajout_compte"><code class="docutils literal notranslate"><span class="pre">ajout_compte()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.compte_list"><code class="docutils literal notranslate"><span class="pre">compte_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.depot"><code class="docutils literal notranslate"><span class="pre">depot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.execute_sql"><code class="docutils literal notranslate"><span class="pre">execute_sql()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.generate_iban"><code class="docutils literal notranslate"><span class="pre">generate_iban()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.get_comptes_by_client_id"><code class="docutils literal notranslate"><span class="pre">get_comptes_by_client_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.get_solde_by_iban"><code class="docutils literal notranslate"><span class="pre">get_solde_by_iban()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.mettre_a_jour_solde"><code class="docutils literal notranslate"><span class="pre">mettre_a_jour_solde()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.nouveau_client"><code class="docutils literal notranslate"><span class="pre">nouveau_client()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.rechercher_comptes"><code class="docutils literal notranslate"><span class="pre">rechercher_comptes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.retrait"><code class="docutils literal notranslate"><span class="pre">retrait()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.supprimer_client"><code class="docutils literal notranslate"><span class="pre">supprimer_client()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bankapp.views.versement"><code class="docutils literal notranslate"><span class="pre">versement()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-bankapp">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manage.html">manage module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Ci_CD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">bank</a></li>
+      <li class="breadcrumb-item active">bankapp package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bankapp.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bankapp-package">
+<h1>bankapp package<a class="headerlink" href="#bankapp-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div style="font-size: 40px; font-weight: bold; color: #2980b9;">
+    Dossiers Migration, Static et Templates
+</div><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bankapp.migrations.html">bankapp.migrations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bankapp.migrations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bankapp.migrations.html#module-bankapp.migrations.0001_initial">bankapp.migrations.0001_initial module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0001_initial.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0001_initial.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0001_initial.Migration.initial"><code class="docutils literal notranslate"><span class="pre">Migration.initial</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0001_initial.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bankapp.migrations.html#module-bankapp.migrations.0002_alter_compte_iban_alter_compte_client">bankapp.migrations.0002_alter_compte_iban_alter_compte_client module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0002_alter_compte_iban_alter_compte_client.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0002_alter_compte_iban_alter_compte_client.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0002_alter_compte_iban_alter_compte_client.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bankapp.migrations.html#module-bankapp.migrations.0003_alter_compte_client">bankapp.migrations.0003_alter_compte_client module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0003_alter_compte_client.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0003_alter_compte_client.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0003_alter_compte_client.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bankapp.migrations.html#module-bankapp.migrations.0004_alter_compte_client">bankapp.migrations.0004_alter_compte_client module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0004_alter_compte_client.Migration"><code class="docutils literal notranslate"><span class="pre">Migration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0004_alter_compte_client.Migration.dependencies"><code class="docutils literal notranslate"><span class="pre">Migration.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="bankapp.migrations.html#bankapp.migrations.0004_alter_compte_client.Migration.operations"><code class="docutils literal notranslate"><span class="pre">Migration.operations</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bankapp.migrations.html#module-bankapp.migrations">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-bankapp.admin">
+<span id="bankapp-admin-module"></span><h2>bankapp.admin module<a class="headerlink" href="#module-bankapp.admin" title="Link to this heading"></a></h2>
+</section>
+<section id="bankapp-apps-module">
+<h2>bankapp.apps module<a class="headerlink" href="#bankapp-apps-module" title="Link to this heading"></a></h2>
+<div style="font-size: 40px; font-weight: bold; color: #2980b9;">
+    Fichier apps.py
+</div><dl class="py class" id="module-bankapp.apps">
+<dt class="sig sig-object py" id="bankapp.apps.BankappConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bankapp.apps.</span></span><span class="sig-name descname"><span class="pre">BankappConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/apps.html#BankappConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.apps.BankappConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.apps.BankappConfig.default_auto_field">
+<span class="sig-name descname"><span class="pre">default_auto_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django.db.models.BigAutoField'</span></em><a class="headerlink" href="#bankapp.apps.BankappConfig.default_auto_field" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.apps.BankappConfig.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bankapp'</span></em><a class="headerlink" href="#bankapp.apps.BankappConfig.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="bankapp-forms-module">
+<h2>bankapp.forms module<a class="headerlink" href="#bankapp-forms-module" title="Link to this heading"></a></h2>
+<div style="font-size: 40px; font-weight: bold; color: #2980b9;">
+    Fichier forms.py
+</div><dl class="py class" id="module-bankapp.forms">
+<dt class="sig sig-object py" id="bankapp.forms.ClientForm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bankapp.forms.</span></span><span class="sig-name descname"><span class="pre">ClientForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/forms.html#ClientForm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.forms.ClientForm" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></p>
+<section id="formulaire-client">
+<h3>Formulaire Client:<a class="headerlink" href="#formulaire-client" title="Link to this heading"></a></h3>
+<p>Formulaire de création/modification d’un client.</p>
+<p>Ce formulaire est basé sur le modèle Django “Client” et inclut les champs suivants :
+- nom
+- prénom
+- sexe
+- email
+- nom_utilisateur
+- mdp</p>
+</section>
+<section id="attributes">
+<h3>Attributes:<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<p>forms.ModelForm: Classe parente pour créer un formulaire basé sur un modèle Django.</p>
+</section>
+<section id="meta">
+<h3>Meta:<a class="headerlink" href="#meta" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>model: Client</dt><dd><p>Le modèle de base pour ce formulaire.</p>
+</dd>
+<dt>fields: List[str]</dt><dd><p>Liste des champs inclus dans le formulaire.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="bankapp.forms.ClientForm.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/bankapp/forms.html#ClientForm.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.forms.ClientForm.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.forms.ClientForm.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['nom',</span> <span class="pre">'prenom',</span> <span class="pre">'sexe',</span> <span class="pre">'email',</span> <span class="pre">'nom_utilisateur',</span> <span class="pre">'mdp']</span></em><a class="headerlink" href="#bankapp.forms.ClientForm.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.forms.ClientForm.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#bankapp.forms.ClientForm.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias de <a class="reference internal" href="#bankapp.models.Client" title="bankapp.models.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.forms.ClientForm.base_fields">
+<span class="sig-name descname"><span class="pre">base_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'email':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'mdp':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'nom':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'nom_utilisateur':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'prenom':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'sexe':</span> <span class="pre">&lt;django.forms.fields.TypedChoiceField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#bankapp.forms.ClientForm.base_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.forms.ClientForm.declared_fields">
+<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#bankapp.forms.ClientForm.declared_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bankapp.forms.ClientForm.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#bankapp.forms.ClientForm.media" title="Link to this definition"></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bankapp.forms.CompteForm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bankapp.forms.</span></span><span class="sig-name descname"><span class="pre">CompteForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/forms.html#CompteForm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.forms.CompteForm" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></p>
+<section id="formulaire-compte">
+<h3>Formulaire Compte:<a class="headerlink" href="#formulaire-compte" title="Link to this heading"></a></h3>
+<p>Formulaire de création/modification d’un compte.</p>
+<p>Ce formulaire est basé sur le modèle Django “Compte” et inclut le champ “client”.</p>
+</section>
+<section id="id1">
+<h3>Attributes:<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>forms.ModelForm: Classe parente pour créer un formulaire basé sur un modèle Django.</p>
+</section>
+<section id="methods">
+<h3>Methods:<a class="headerlink" href="#methods" title="Link to this heading"></a></h3>
+<dl>
+<dt>__init__(self, <a href="#id2"><span class="problematic" id="id3">*</span></a>args, <a href="#id4"><span class="problematic" id="id5">**</span></a>kwargs):</dt><dd><p>Initialise le formulaire avec des données optionnelles.</p>
+<dl class="simple">
+<dt><a href="#id6"><span class="problematic" id="id7">*</span></a>args: List</dt><dd><p>Arguments positionnels pour initialiser le formulaire.</p>
+</dd>
+<dt><a href="#id8"><span class="problematic" id="id9">**</span></a>kwargs: Dict</dt><dd><p>Arguments clés-valeurs pour initialiser le formulaire.</p>
+</dd>
+</dl>
+<p>Modifie l’étiquette vide du champ “client” pour afficher “Sélectionner un client”.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="bankapp.forms.CompteForm.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/bankapp/forms.html#CompteForm.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.forms.CompteForm.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.forms.CompteForm.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['client']</span></em><a class="headerlink" href="#bankapp.forms.CompteForm.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.forms.CompteForm.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#bankapp.forms.CompteForm.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias de <a class="reference internal" href="#bankapp.models.Compte" title="bankapp.models.Compte"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compte</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.forms.CompteForm.base_fields">
+<span class="sig-name descname"><span class="pre">base_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'client':</span> <span class="pre">&lt;django.forms.models.ModelChoiceField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#bankapp.forms.CompteForm.base_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.forms.CompteForm.declared_fields">
+<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#bankapp.forms.CompteForm.declared_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bankapp.forms.CompteForm.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#bankapp.forms.CompteForm.media" title="Link to this definition"></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="bankapp-models-module">
+<h2>bankapp.models module<a class="headerlink" href="#bankapp-models-module" title="Link to this heading"></a></h2>
+<div style="font-size: 40px; font-weight: bold; color: #2980b9;">
+    Fichier models.py
+</div><dl class="py class" id="module-bankapp.models">
+<dt class="sig sig-object py" id="bankapp.models.Client">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bankapp.models.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/models.html#Client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.models.Client" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Modèle de données pour représenter un client.</p>
+<section id="id10">
+<h3>Attributes:<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>nom<span class="classifier">str</span></dt><dd><p>Nom du client (maximum 75 caractères).</p>
+</dd>
+<dt>prenom<span class="classifier">str</span></dt><dd><p>Prénom du client (maximum 75 caractères).</p>
+</dd>
+<dt>sexe<span class="classifier">str</span></dt><dd><p>Genre du client, choix entre “Homme” ou “Femme” (maximum 10 caractères).</p>
+</dd>
+<dt>email<span class="classifier">str</span></dt><dd><p>Adresse email du client (maximum 100 caractères).</p>
+</dd>
+<dt>nom_utilisateur<span class="classifier">str</span></dt><dd><p>Nom d’utilisateur du client (maximum 50 caractères).</p>
+</dd>
+<dt>mdp<span class="classifier">str</span></dt><dd><p>Mot de passe du client (maximum 50 caractères).</p>
+</dd>
+</dl>
+</section>
+<section id="id11">
+<h3>Meta:<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>db_table<span class="classifier">str</span></dt><dd><p>Nom de la table de base de données associée à ce modèle (table “client”).</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="bankapp.models.Client.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#bankapp.models.Client.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="bankapp.models.Client.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#bankapp.models.Client.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Client.SEXE_CHOICES">
+<span class="sig-name descname"><span class="pre">SEXE_CHOICES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Homme',</span> <span class="pre">'Homme'),</span> <span class="pre">('Femme',</span> <span class="pre">'Femme')]</span></em><a class="headerlink" href="#bankapp.models.Client.SEXE_CHOICES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Client.compte_set">
+<span class="sig-name descname"><span class="pre">compte_set</span></span><a class="headerlink" href="#bankapp.models.Client.compte_set" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Client.email">
+<span class="sig-name descname"><span class="pre">email</span></span><a class="headerlink" href="#bankapp.models.Client.email" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bankapp.models.Client.get_sexe_display">
+<span class="sig-name descname"><span class="pre">get_sexe_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">sexe&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bankapp.models.Client.get_sexe_display" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Client.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#bankapp.models.Client.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Client.mdp">
+<span class="sig-name descname"><span class="pre">mdp</span></span><a class="headerlink" href="#bankapp.models.Client.mdp" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Client.nom">
+<span class="sig-name descname"><span class="pre">nom</span></span><a class="headerlink" href="#bankapp.models.Client.nom" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Client.nom_utilisateur">
+<span class="sig-name descname"><span class="pre">nom_utilisateur</span></span><a class="headerlink" href="#bankapp.models.Client.nom_utilisateur" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Client.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#bankapp.models.Client.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Client.prenom">
+<span class="sig-name descname"><span class="pre">prenom</span></span><a class="headerlink" href="#bankapp.models.Client.prenom" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Client.sexe">
+<span class="sig-name descname"><span class="pre">sexe</span></span><a class="headerlink" href="#bankapp.models.Client.sexe" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bankapp.models.Compte">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bankapp.models.</span></span><span class="sig-name descname"><span class="pre">Compte</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/models.html#Compte"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.models.Compte" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Modèle de données pour représenter un compte.</p>
+<section id="id12">
+<h3>Attributes:<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>IBAN<span class="classifier">str</span></dt><dd><p>Numéro IBAN du compte (maximum 50 caractères), unique dans la base de données.</p>
+</dd>
+<dt>client<span class="classifier">Client</span></dt><dd><p>Référence au client associé à ce compte (clé étrangère vers le modèle Client).</p>
+</dd>
+<dt>solde<span class="classifier">Decimal</span></dt><dd><p>Solde du compte (maximum 10 chiffres avant la virgule et 2 chiffres après la virgule).
+La valeur par défaut est 0.00.</p>
+</dd>
+<dt>date<span class="classifier">datetime</span></dt><dd><p>Date de création du compte (remplie automatiquement lors de la création).</p>
+</dd>
+</dl>
+</section>
+<section id="id13">
+<h3>Meta:<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>db_table<span class="classifier">str</span></dt><dd><p>Nom de la table de base de données associée à ce modèle (table “compte”).</p>
+</dd>
+</dl>
+</section>
+<section id="id14">
+<h3>Methods:<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>__str__():</dt><dd><p>Renvoie l’IBAN du compte sous forme de chaîne.</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="bankapp.models.Compte.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#bankapp.models.Compte.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Compte.IBAN">
+<span class="sig-name descname"><span class="pre">IBAN</span></span><a class="headerlink" href="#bankapp.models.Compte.IBAN" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="bankapp.models.Compte.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#bankapp.models.Compte.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Compte.client">
+<span class="sig-name descname"><span class="pre">client</span></span><a class="headerlink" href="#bankapp.models.Compte.client" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Compte.client_id">
+<span class="sig-name descname"><span class="pre">client_id</span></span><a class="headerlink" href="#bankapp.models.Compte.client_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Compte.date">
+<span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#bankapp.models.Compte.date" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bankapp.models.Compte.get_next_by_date">
+<span class="sig-name descname"><span class="pre">get_next_by_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bankapp.models.Compte.get_next_by_date" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bankapp.models.Compte.get_previous_by_date">
+<span class="sig-name descname"><span class="pre">get_previous_by_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bankapp.models.Compte.get_previous_by_date" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Compte.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#bankapp.models.Compte.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Compte.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#bankapp.models.Compte.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Compte.solde">
+<span class="sig-name descname"><span class="pre">solde</span></span><a class="headerlink" href="#bankapp.models.Compte.solde" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Compte.transactions_cible">
+<span class="sig-name descname"><span class="pre">transactions_cible</span></span><a class="headerlink" href="#bankapp.models.Compte.transactions_cible" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Compte.transactions_source">
+<span class="sig-name descname"><span class="pre">transactions_source</span></span><a class="headerlink" href="#bankapp.models.Compte.transactions_source" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bankapp.models.Personnel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bankapp.models.</span></span><span class="sig-name descname"><span class="pre">Personnel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/models.html#Personnel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.models.Personnel" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Modèle de données pour représenter le personnel.</p>
+<section id="id15">
+<h3>Attributes:<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>nom<span class="classifier">str</span></dt><dd><p>Nom du personnel (maximum 75 caractères).</p>
+</dd>
+<dt>prenom<span class="classifier">str</span></dt><dd><p>Prénom du personnel (maximum 75 caractères).</p>
+</dd>
+<dt>email<span class="classifier">str</span></dt><dd><p>Adresse email du personnel (maximum 100 caractères).</p>
+</dd>
+<dt>date_arrive<span class="classifier">datetime</span></dt><dd><p>Date d’arrivée du personnel (peut être vide).</p>
+</dd>
+<dt>nom_utilisateur<span class="classifier">str</span></dt><dd><p>Nom d’utilisateur du personnel (maximum 50 caractères).</p>
+</dd>
+<dt>mdp<span class="classifier">str</span></dt><dd><p>Mot de passe du personnel (maximum 50 caractères).</p>
+</dd>
+</dl>
+</section>
+<section id="id16">
+<h3>Meta:<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>db_table<span class="classifier">str</span></dt><dd><p>Nom de la table de base de données associée à ce modèle (table “personnel”).</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="bankapp.models.Personnel.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#bankapp.models.Personnel.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="bankapp.models.Personnel.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#bankapp.models.Personnel.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Personnel.date_arrive">
+<span class="sig-name descname"><span class="pre">date_arrive</span></span><a class="headerlink" href="#bankapp.models.Personnel.date_arrive" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Personnel.email">
+<span class="sig-name descname"><span class="pre">email</span></span><a class="headerlink" href="#bankapp.models.Personnel.email" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Personnel.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#bankapp.models.Personnel.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Personnel.mdp">
+<span class="sig-name descname"><span class="pre">mdp</span></span><a class="headerlink" href="#bankapp.models.Personnel.mdp" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Personnel.nom">
+<span class="sig-name descname"><span class="pre">nom</span></span><a class="headerlink" href="#bankapp.models.Personnel.nom" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Personnel.nom_utilisateur">
+<span class="sig-name descname"><span class="pre">nom_utilisateur</span></span><a class="headerlink" href="#bankapp.models.Personnel.nom_utilisateur" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Personnel.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#bankapp.models.Personnel.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Personnel.prenom">
+<span class="sig-name descname"><span class="pre">prenom</span></span><a class="headerlink" href="#bankapp.models.Personnel.prenom" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bankapp.models.Transaction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bankapp.models.</span></span><span class="sig-name descname"><span class="pre">Transaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/models.html#Transaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.models.Transaction" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Modèle de données pour représenter une transaction entre deux comptes.</p>
+<section id="id17">
+<h3>Attributes:<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>compte_source<span class="classifier">Compte</span></dt><dd><p>Compte source de la transaction (clé étrangère vers le modèle Compte).</p>
+</dd>
+<dt>compte_cible<span class="classifier">Compte</span></dt><dd><p>Compte cible de la transaction (clé étrangère vers le modèle Compte).</p>
+</dd>
+<dt>montant<span class="classifier">Decimal</span></dt><dd><p>Montant de la transaction (maximum 10 chiffres avant la virgule et 2 chiffres après la virgule).</p>
+</dd>
+<dt>type<span class="classifier">str</span></dt><dd><p>Type de transaction (maximum 25 caractères).</p>
+</dd>
+</dl>
+</section>
+<section id="id18">
+<h3>Meta:<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>db_table<span class="classifier">str</span></dt><dd><p>Nom de la table de base de données associée à ce modèle (table “transaction”).</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="bankapp.models.Transaction.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#bankapp.models.Transaction.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="bankapp.models.Transaction.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#bankapp.models.Transaction.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Transaction.compte_cible">
+<span class="sig-name descname"><span class="pre">compte_cible</span></span><a class="headerlink" href="#bankapp.models.Transaction.compte_cible" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Transaction.compte_cible_id">
+<span class="sig-name descname"><span class="pre">compte_cible_id</span></span><a class="headerlink" href="#bankapp.models.Transaction.compte_cible_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Transaction.compte_source">
+<span class="sig-name descname"><span class="pre">compte_source</span></span><a class="headerlink" href="#bankapp.models.Transaction.compte_source" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Transaction.compte_source_id">
+<span class="sig-name descname"><span class="pre">compte_source_id</span></span><a class="headerlink" href="#bankapp.models.Transaction.compte_source_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Transaction.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#bankapp.models.Transaction.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Transaction.montant">
+<span class="sig-name descname"><span class="pre">montant</span></span><a class="headerlink" href="#bankapp.models.Transaction.montant" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Transaction.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#bankapp.models.Transaction.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bankapp.models.Transaction.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#bankapp.models.Transaction.type" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-bankapp.tests">
+<span id="bankapp-tests-module"></span><h2>bankapp.tests module<a class="headerlink" href="#module-bankapp.tests" title="Link to this heading"></a></h2>
+</section>
+<section id="bankapp-urls-module">
+<h2>bankapp.urls module<a class="headerlink" href="#bankapp-urls-module" title="Link to this heading"></a></h2>
+<div style="font-size: 40px; font-weight: bold; color: #2980b9;">
+    Fichier urls.py
+</div><dl class="py data" id="module-bankapp.urls">
+<dt class="sig sig-object py" id="bankapp.urls.urlpatterns">
+<span class="sig-prename descclassname"><span class="pre">bankapp.urls.</span></span><span class="sig-name descname"><span class="pre">urlpatterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;URLPattern</span> <span class="pre">''</span> <span class="pre">[name='index']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'nouveau_client/'</span> <span class="pre">[name='nouveau_client']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'ajout_compte/'</span> <span class="pre">[name='ajout_compte']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'client/supprimer/&lt;int:client_id&gt;/'</span> <span class="pre">[name='supprimer_client']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'execute-sql/'</span> <span class="pre">[name='execute_sql']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'depot/'</span> <span class="pre">[name='depot']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'retrait/'</span> <span class="pre">[name='retrait']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'comptes/'</span> <span class="pre">[name='compte_list']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'versement/'</span> <span class="pre">[name='versement']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'rechercher_comptes/'</span> <span class="pre">[name='rechercher_comptes']&gt;]</span></em><a class="headerlink" href="#bankapp.urls.urlpatterns" title="Link to this definition"></a></dt>
+<dd><section id="utilite">
+<h3>Utilité:<a class="headerlink" href="#utilite" title="Link to this heading"></a></h3>
+<p>Liste des URLs de l’application “bankapp”.</p>
+<p>Cette liste définit les chemins d’accès aux différentes vues de l’application “bankapp”.</p>
+</section>
+<section id="urls">
+<h3>URLs:<a class="headerlink" href="#urls" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>“”<span class="classifier">views.index</span></dt><dd><p>Chemin d’accès à la page d’accueil de l’application.</p>
+</dd>
+<dt>“nouveau_client/”<span class="classifier">views.nouveau_client</span></dt><dd><p>Chemin d’accès pour créer un nouveau client.</p>
+</dd>
+<dt>“ajout_compte/”<span class="classifier">views.ajout_compte</span></dt><dd><p>Chemin d’accès pour ajouter un compte.</p>
+</dd>
+<dt>“client/supprimer/&lt;int:client_id&gt;/”<span class="classifier">views.supprimer_client</span></dt><dd><p>Chemin d’accès pour supprimer un client en utilisant son ID.</p>
+</dd>
+<dt>“execute-sql/”<span class="classifier">views.execute_sql</span></dt><dd><p>Chemin d’accès pour exécuter une requête SQL.</p>
+</dd>
+<dt>“depot/”<span class="classifier">views.depot</span></dt><dd><p>Chemin d’accès pour effectuer un dépôt.</p>
+</dd>
+<dt>“retrait/”<span class="classifier">views.retrait</span></dt><dd><p>Chemin d’accès pour effectuer un retrait.</p>
+</dd>
+<dt>“comptes/”<span class="classifier">compte_list</span></dt><dd><p>Chemin d’accès à la liste des comptes.</p>
+</dd>
+<dt>“versement/”<span class="classifier">views.versement</span></dt><dd><p>Chemin d’accès pour effectuer un versement.</p>
+</dd>
+<dt>“rechercher_comptes/”<span class="classifier">rechercher_comptes</span></dt><dd><p>Chemin d’accès pour rechercher des comptes.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="bankapp-views-module">
+<h2>bankapp.views module<a class="headerlink" href="#bankapp-views-module" title="Link to this heading"></a></h2>
+<div style="font-size: 40px; font-weight: bold; color: #2980b9;">
+    Fichier views.py
+</div><dl class="py function" id="module-bankapp.views">
+<dt class="sig sig-object py" id="bankapp.views.ajout_compte">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">ajout_compte</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#ajout_compte"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.ajout_compte" title="Link to this definition"></a></dt>
+<dd><p>Vue pour ajouter un nouveau compte à la base de données.</p>
+<section id="parameters">
+<h3>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>request<span class="classifier">HttpRequest</span></dt><dd><p>Objet HttpRequest représentant la requête HTTP reçue.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns:<a class="headerlink" href="#returns" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HttpResponse / HttpResponseRedirect</dt><dd><p>Réponse HTTP pour afficher le formulaire d’ajout de compte
+ou rediriger vers la page d’accueil après l’ajout.</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h3>Notes:<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Si la requête est de type “POST”, vérifie et traite les données du formulaire de création de compte.</p></li>
+<li><p>Si le formulaire est valide, crée un nouveau compte avec un IBAN généré et l’enregistre dans la base de données.</p></li>
+<li><p>Si la requête est de type “GET”, affiche le formulaire vide pour ajouter un nouveau compte.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.compte_list">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">compte_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#compte_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.compte_list" title="Link to this definition"></a></dt>
+<dd><p>Affiche une liste de comptes associés à un client spécifique.</p>
+<section id="id19">
+<h3>Parameters:<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>request<span class="classifier">HttpRequest</span></dt><dd><p>Objet HttpRequest représentant la requête HTTP reçue.</p>
+</dd>
+</dl>
+</section>
+<section id="id20">
+<h3>Returns:<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HttpResponse</dt><dd><p>Réponse HTTP avec la liste des comptes associés au client spécifié.</p>
+</dd>
+</dl>
+</section>
+<section id="id21">
+<h3>Notes:<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
+<p>Si la méthode de la requête est “POST”, récupère l’identifiant du client à partir des données POST.
+Appelle la fonction “get_comptes_by_client_id” pour obtenir la liste des comptes associés à ce client.
+Si aucun compte n’est trouvé pour l’identifiant du client, un message spécifique est affiché.
+Renvoie un rendu HTML avec la liste des comptes et le message, à afficher sur la page “compte_list.html”.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.depot">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">depot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#depot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.depot" title="Link to this definition"></a></dt>
+<dd><p>Vue pour effectuer un dépôt sur un compte bancaire en utilisant une connexion directe à une base de données MySQL.</p>
+<section id="id22">
+<h3>Parameters:<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>request<span class="classifier">HttpRequest</span></dt><dd><p>Objet HttpRequest représentant la requête HTTP reçue.</p>
+</dd>
+</dl>
+</section>
+<section id="id23">
+<h3>Returns:<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HttpResponse</dt><dd><p>Réponse HTTP pour indiquer le succès de la mise à jour du solde du compte.</p>
+</dd>
+</dl>
+</section>
+<section id="id24">
+<h3>Notes:<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Si la requête est de type “POST”, récupère l’IBAN et le montant à déposer depuis les données POST.</p></li>
+<li><p>Établit une connexion à la base de données MySQL avec les informations de connexion fournies.</p></li>
+<li><p>Utilise des fonctions internes pour retrouver le solde du compte associé à l’IBAN, mettre à jour le solde du compte avec le montant déposé, et envoie un message de vérification asynchrone si le montant est supérieur à 10000 euros.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.execute_sql">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">execute_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#execute_sql"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.execute_sql" title="Link to this definition"></a></dt>
+<dd><p>Vue pour exécuter une commande SQL personnalisée pour supprimer un client.</p>
+<section id="id25">
+<h3>Parameters:<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>request<span class="classifier">HttpRequest</span></dt><dd><p>Objet HttpRequest représentant la requête HTTP reçue.</p>
+</dd>
+</dl>
+</section>
+<section id="id26">
+<h3>Returns:<a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HttpResponseRedirect / HttpResponse</dt><dd><p>Redirection vers la page d’accueil après l’exécution de la commande SQL,
+ou affichage du formulaire HTML pour saisir la commande SQL.</p>
+</dd>
+</dl>
+</section>
+<section id="id27">
+<h3>Notes:<a class="headerlink" href="#id27" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Si la requête est de type “POST”, récupère l’identifiant du client à supprimer et exécute la commande SQL DELETE correspondante.</p></li>
+<li><p>Redirige ensuite vers la page d’accueil de l’application.</p></li>
+<li><p>Si la requête est de type “GET”, affiche le formulaire HTML pour saisir la commande SQL.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.generate_iban">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">generate_iban</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#generate_iban"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.generate_iban" title="Link to this definition"></a></dt>
+<dd><p>Génère un numéro IBAN aléatoire pour un compte bancaire.</p>
+<section id="id28">
+<h3>Returns:<a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>str</dt><dd><p>Numéro IBAN généré au format FR68 XXXX XXXX XXXX XXXX XXXX XXXX.</p>
+</dd>
+</dl>
+</section>
+<section id="id29">
+<h3>Notes:<a class="headerlink" href="#id29" title="Link to this heading"></a></h3>
+<p>Génère un numéro IBAN au format FR68 suivi de 5 groupes de chiffres aléatoires.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.get_comptes_by_client_id">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">get_comptes_by_client_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#get_comptes_by_client_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.get_comptes_by_client_id" title="Link to this definition"></a></dt>
+<dd><p>Récupère les comptes associés à un client spécifique depuis la base de données.</p>
+<section id="id30">
+<h3>Parameters:<a class="headerlink" href="#id30" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>client_id<span class="classifier">int</span></dt><dd><p>Identifiant du client pour lequel récupérer les comptes.</p>
+</dd>
+</dl>
+</section>
+<section id="id31">
+<h3>Returns:<a class="headerlink" href="#id31" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>list</dt><dd><p>Liste des comptes associés au client spécifié.</p>
+</dd>
+</dl>
+</section>
+<section id="id32">
+<h3>Notes:<a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
+<p>Établit une connexion à la base de données MySQL avec les informations de connexion fournies.
+Exécute une requête SQL SELECT pour récupérer tous les comptes liés à un client par son identifiant.
+Ferme le curseur et la connexion à la base de données après avoir récupéré les comptes.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.get_solde_by_iban">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">get_solde_by_iban</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iban</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#get_solde_by_iban"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.get_solde_by_iban" title="Link to this definition"></a></dt>
+<dd><p>Récupère le solde d’un compte bancaire en fonction de son IBAN dans la base de données.</p>
+<section id="id33">
+<h3>Parameters:<a class="headerlink" href="#id33" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>iban<span class="classifier">str</span></dt><dd><p>Numéro d’identification bancaire (IBAN) du compte.</p>
+</dd>
+</dl>
+</section>
+<section id="id34">
+<h3>Returns:<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>float or None</dt><dd><p>Solde du compte associé à l’IBAN spécifié. Renvoie None si aucun compte n’est trouvé.</p>
+</dd>
+</dl>
+</section>
+<section id="id35">
+<h3>Notes:<a class="headerlink" href="#id35" title="Link to this heading"></a></h3>
+<p>Exécute une requête SQL SELECT pour récupérer le solde du compte associé à l’IBAN fourni.
+Si un compte est trouvé pour l’IBAN, renvoie le solde du compte. Sinon, affiche un message d’erreur
+indiquant qu’aucun compte n’a été trouvé avec l’IBAN spécifié.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.index">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.index" title="Link to this definition"></a></dt>
+<dd><p>Vue pour afficher la page d’accueil de l’application.</p>
+<section id="id36">
+<h3>Parameters:<a class="headerlink" href="#id36" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>request<span class="classifier">HttpRequest</span></dt><dd><p>Objet HttpRequest représentant la requête HTTP reçue.</p>
+</dd>
+</dl>
+</section>
+<section id="id37">
+<h3>Returns:<a class="headerlink" href="#id37" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HttpResponse</dt><dd><p>Réponse HTTP rendue pour afficher la page d’accueil.</p>
+</dd>
+</dl>
+</section>
+<section id="id38">
+<h3>Notes:<a class="headerlink" href="#id38" title="Link to this heading"></a></h3>
+<p>Récupère la liste de tous les clients et comptes depuis la base de données.
+Puis, renvoie la page d’accueil “bankapp/index.html” avec les données des clients et des comptes.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.mettre_a_jour_solde">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">mettre_a_jour_solde</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iban</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">montant</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#mettre_a_jour_solde"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.mettre_a_jour_solde" title="Link to this definition"></a></dt>
+<dd><p>Met à jour le solde d’un compte bancaire en fonction de son IBAN en ajoutant un montant.</p>
+<section id="id39">
+<h3>Parameters:<a class="headerlink" href="#id39" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>iban<span class="classifier">str</span></dt><dd><p>Numéro d’identification bancaire (IBAN) du compte à mettre à jour.</p>
+</dd>
+<dt>montant<span class="classifier">float</span></dt><dd><p>Montant à ajouter au solde du compte.</p>
+</dd>
+</dl>
+</section>
+<section id="id40">
+<h3>Notes:<a class="headerlink" href="#id40" title="Link to this heading"></a></h3>
+<p>Récupère le solde du compte associé à l’IBAN en utilisant la fonction “get_solde_by_iban”.
+Si un compte est trouvé, le montant spécifié est ajouté au solde du compte.
+Exécute une requête SQL UPDATE pour mettre à jour le solde du compte dans la base de données.
+Affiche un message indiquant que le solde du compte a été mis à jour avec succès.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.nouveau_client">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">nouveau_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#nouveau_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.nouveau_client" title="Link to this definition"></a></dt>
+<dd><p>Vue pour ajouter un nouveau client à la base de données.</p>
+<section id="id41">
+<h3>Parameters:<a class="headerlink" href="#id41" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>request<span class="classifier">HttpRequest</span></dt><dd><p>Objet HttpRequest représentant la requête HTTP reçue.</p>
+</dd>
+</dl>
+</section>
+<section id="id42">
+<h3>Returns:<a class="headerlink" href="#id42" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HttpResponse</dt><dd><p>Réponse HTTP pour afficher le formulaire d’ajout d’un nouveau client
+ou un message de confirmation après l’ajout.</p>
+</dd>
+</dl>
+</section>
+<section id="id43">
+<h3>Notes:<a class="headerlink" href="#id43" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Si la requête est de type “POST”, vérifie et traite les données du formulaire de création de client.</p></li>
+<li><p>Si le formulaire est valide, enregistre le nouveau client dans la base de données et renvoie un message de succès.</p></li>
+<li><p>Si la requête est de type “GET”, affiche le formulaire vide pour ajouter un nouveau client.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.rechercher_comptes">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">rechercher_comptes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#rechercher_comptes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.rechercher_comptes" title="Link to this definition"></a></dt>
+<dd><p>Recherche et génère un fichier CSV contenant les informations des comptes associés à un client.</p>
+<section id="id44">
+<h3>Parameters:<a class="headerlink" href="#id44" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>request<span class="classifier">HttpRequest</span></dt><dd><p>Objet HttpRequest représentant la requête HTTP reçue.</p>
+</dd>
+</dl>
+</section>
+<section id="id45">
+<h3>Returns:<a class="headerlink" href="#id45" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HttpResponse</dt><dd><p>Réponse HTTP avec un fichier CSV contenant les informations des comptes du client en téléchargement.</p>
+</dd>
+</dl>
+</section>
+<section id="id46">
+<h3>Notes:<a class="headerlink" href="#id46" title="Link to this heading"></a></h3>
+<p>Si la méthode de la requête est “POST”, récupère l’ID du client depuis les données POST.
+Utilise la fonction “filter” pour obtenir tous les comptes associés à ce client.
+Génère un fichier CSV contenant les IBAN et les soldes de chaque compte du client.
+Renvoie une réponse HTTP avec le fichier CSV en téléchargement ou rend la page “index.html”.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.retrait">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">retrait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#retrait"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.retrait" title="Link to this definition"></a></dt>
+<dd><p>Vue pour effectuer un retrait sur un compte bancaire en utilisant une connexion directe à une base de données MySQL.</p>
+<section id="id47">
+<h3>Parameters:<a class="headerlink" href="#id47" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>request<span class="classifier">HttpRequest</span></dt><dd><p>Objet HttpRequest représentant la requête HTTP reçue.</p>
+</dd>
+</dl>
+</section>
+<section id="id48">
+<h3>Returns:<a class="headerlink" href="#id48" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HttpResponse</dt><dd><p>Réponse HTTP pour indiquer le succès de la mise à jour du solde du compte.</p>
+</dd>
+</dl>
+</section>
+<section id="id49">
+<h3>Notes:<a class="headerlink" href="#id49" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Si la requête est de type “POST”, récupère l’IBAN et le montant à retirer depuis les données POST.</p></li>
+<li><p>Établit une connexion à la base de données MySQL avec les informations de connexion fournies.</p></li>
+<li><p>Utilise des fonctions internes pour retrouver le solde du compte associé à l’IBAN, mettre à jour le solde du compte avec le montant retiré, et envoie un message de vérification asynchrone si le montant est supérieur à 10000 euros.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.supprimer_client">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">supprimer_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#supprimer_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.supprimer_client" title="Link to this definition"></a></dt>
+<dd><p>Vue pour supprimer un client de la base de données.</p>
+<section id="id50">
+<h3>Parameters:<a class="headerlink" href="#id50" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>request<span class="classifier">HttpRequest</span></dt><dd><p>Objet HttpRequest représentant la requête HTTP reçue.</p>
+</dd>
+<dt>client_id<span class="classifier">int</span></dt><dd><p>Identifiant du client à supprimer.</p>
+</dd>
+</dl>
+</section>
+<section id="id51">
+<h3>Returns:<a class="headerlink" href="#id51" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HttpResponseRedirect</dt><dd><p>Redirection vers la page d’accueil après la suppression du client.</p>
+</dd>
+</dl>
+</section>
+<section id="id52">
+<h3>Notes:<a class="headerlink" href="#id52" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Recherche le client à l’aide de son identifiant dans la base de données.</p></li>
+<li><p>Supprime le client trouvé.</p></li>
+<li><p>Redirige ensuite vers la page d’accueil de l’application.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bankapp.views.versement">
+<span class="sig-prename descclassname"><span class="pre">bankapp.views.</span></span><span class="sig-name descname"><span class="pre">versement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bankapp/views.html#versement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bankapp.views.versement" title="Link to this definition"></a></dt>
+<dd><p>Traite une opération de versement entre deux comptes bancaires.</p>
+<section id="id53">
+<h3>Parameters:<a class="headerlink" href="#id53" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>request<span class="classifier">HttpRequest</span></dt><dd><p>Objet HttpRequest représentant la requête HTTP reçue.</p>
+</dd>
+</dl>
+</section>
+<section id="id54">
+<h3>Returns:<a class="headerlink" href="#id54" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HttpResponse</dt><dd><p>Rendu HTML de la page “index.html”.</p>
+</dd>
+</dl>
+</section>
+<section id="id55">
+<h3>Notes:<a class="headerlink" href="#id55" title="Link to this heading"></a></h3>
+<p>Si la méthode de la requête est “POST”, récupère les IBAN et le montant depuis les données POST.
+Utilise la fonction “mettre_a_jour_solde” pour débiter le montant de l’IBAN source et créditer
+le montant à l’IBAN cible.
+Renvoie le rendu HTML de la page “index.html”.</p>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-bankapp">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bankapp" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="bank.html" class="btn btn-neutral float-left" title="bank package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="bankapp.migrations.html" class="btn btn-neutral float-right" title="bankapp.migrations package" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur 2023, Bastien DIDIERJEAN.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

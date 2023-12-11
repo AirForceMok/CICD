@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bankapp.views &mdash; Documentation Ci_CD 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=05dadb3a"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/translations.js?v=d99ca74e"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Ci_CD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">bank</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Ci_CD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Code du module</a></li>
+      <li class="breadcrumb-item active">bankapp.views</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Code source de bankapp.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">import</span> <span class="nn">mysql.connector</span>
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">ClientForm</span><span class="p">,</span> <span class="n">CompteForm</span>
+<span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">string</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">connection</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">Compte</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">loader</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">nats.aio.client</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">import</span> <span class="nn">nats</span>
+<span class="kn">from</span> <span class="nn">nats.aio.errors</span> <span class="kn">import</span> <span class="n">ErrConnectionClosed</span><span class="p">,</span> <span class="n">ErrTimeout</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">authenticate</span><span class="p">,</span> <span class="n">login</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+
+
+
+<div class="viewcode-block" id="index">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.index">[docs]</a>
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vue pour afficher la page d&#39;accueil de l&#39;application.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        request : HttpRequest</span>
+<span class="sd">            Objet HttpRequest représentant la requête HTTP reçue.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        HttpResponse</span>
+<span class="sd">            Réponse HTTP rendue pour afficher la page d&#39;accueil.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        Récupère la liste de tous les clients et comptes depuis la base de données.</span>
+<span class="sd">        Puis, renvoie la page d&#39;accueil &#39;bankapp/index.html&#39; avec les données des clients et des comptes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">clientelle</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Client</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+    <span class="n">comptes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Compte</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;clientelle&quot;</span><span class="p">:</span> <span class="n">clientelle</span><span class="p">,</span> <span class="s2">&quot;comptes&quot;</span><span class="p">:</span> <span class="n">comptes</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s2">&quot;bankapp/index.html&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="nouveau_client">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.nouveau_client">[docs]</a>
+<span class="k">def</span> <span class="nf">nouveau_client</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vue pour ajouter un nouveau client à la base de données.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        request : HttpRequest</span>
+<span class="sd">            Objet HttpRequest représentant la requête HTTP reçue.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        HttpResponse</span>
+<span class="sd">            Réponse HTTP pour afficher le formulaire d&#39;ajout d&#39;un nouveau client</span>
+<span class="sd">            ou un message de confirmation après l&#39;ajout.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        - Si la requête est de type &#39;POST&#39;, vérifie et traite les données du formulaire de création de client.</span>
+<span class="sd">        - Si le formulaire est valide, enregistre le nouveau client dans la base de données et renvoie un message de succès.</span>
+<span class="sd">        - Si la requête est de type &#39;GET&#39;, affiche le formulaire vide pour ajouter un nouveau client.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">ClientForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;Le client a été ajouté avec succès.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">ClientForm</span><span class="p">()</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;bankapp/index.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ajout_compte">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.ajout_compte">[docs]</a>
+<span class="k">def</span> <span class="nf">ajout_compte</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vue pour ajouter un nouveau compte à la base de données.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        request : HttpRequest</span>
+<span class="sd">            Objet HttpRequest représentant la requête HTTP reçue.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        HttpResponse / HttpResponseRedirect</span>
+<span class="sd">            Réponse HTTP pour afficher le formulaire d&#39;ajout de compte</span>
+<span class="sd">            ou rediriger vers la page d&#39;accueil après l&#39;ajout.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        - Si la requête est de type &#39;POST&#39;, vérifie et traite les données du formulaire de création de compte.</span>
+<span class="sd">        - Si le formulaire est valide, crée un nouveau compte avec un IBAN généré et l&#39;enregistre dans la base de données.</span>
+<span class="sd">        - Si la requête est de type &#39;GET&#39;, affiche le formulaire vide pour ajouter un nouveau compte.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">CompteForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">compte</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">compte</span><span class="o">.</span><span class="n">IBAN</span> <span class="o">=</span> <span class="n">generate_iban</span><span class="p">()</span>
+            <span class="n">compte</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">CompteForm</span><span class="p">()</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;bankapp/index.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="generate_iban">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.generate_iban">[docs]</a>
+<span class="k">def</span> <span class="nf">generate_iban</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Génère un numéro IBAN aléatoire pour un compte bancaire.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        str</span>
+<span class="sd">            Numéro IBAN généré au format FR68 XXXX XXXX XXXX XXXX XXXX XXXX.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        Génère un numéro IBAN au format FR68 suivi de 5 groupes de chiffres aléatoires.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">IBAN</span> <span class="o">=</span> <span class="s2">&quot;FR68&quot;</span>
+    <span class="n">random_part</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">IBAN</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">random_part</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">random_part</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">IBAN</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">random_part</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">random_part</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">IBAN</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">random_part</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">IBAN</span></div>
+
+
+
+<span class="c1">#_________________________________________________________________________________________________________________________#</span>
+
+
+
+<div class="viewcode-block" id="supprimer_client">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.supprimer_client">[docs]</a>
+<span class="k">def</span> <span class="nf">supprimer_client</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">client_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vue pour supprimer un client de la base de données.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        request : HttpRequest</span>
+<span class="sd">            Objet HttpRequest représentant la requête HTTP reçue.</span>
+
+<span class="sd">        client_id : int</span>
+<span class="sd">            Identifiant du client à supprimer.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        HttpResponseRedirect</span>
+<span class="sd">            Redirection vers la page d&#39;accueil après la suppression du client.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        - Recherche le client à l&#39;aide de son identifiant dans la base de données.</span>
+<span class="sd">        - Supprime le client trouvé.</span>
+<span class="sd">        - Redirige ensuite vers la page d&#39;accueil de l&#39;application.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">client_id</span><span class="p">)</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="execute_sql">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.execute_sql">[docs]</a>
+<span class="k">def</span> <span class="nf">execute_sql</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vue pour exécuter une commande SQL personnalisée pour supprimer un client.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        request : HttpRequest</span>
+<span class="sd">            Objet HttpRequest représentant la requête HTTP reçue.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        HttpResponseRedirect / HttpResponse</span>
+<span class="sd">            Redirection vers la page d&#39;accueil après l&#39;exécution de la commande SQL,</span>
+<span class="sd">            ou affichage du formulaire HTML pour saisir la commande SQL.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        - Si la requête est de type &#39;POST&#39;, récupère l&#39;identifiant du client à supprimer et exécute la commande SQL DELETE correspondante.</span>
+<span class="sd">        - Redirige ensuite vers la page d&#39;accueil de l&#39;application.</span>
+<span class="sd">        - Si la requête est de type &#39;GET&#39;, affiche le formulaire HTML pour saisir la commande SQL.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Votre commande SQL à exécuter</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;DELETE FROM client WHERE id=</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">;&quot;</span>
+
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+
+        <span class="c1"># Rediriger vers la page principale (index)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Gérer le cas où le formulaire n&#39;a pas été soumis</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;template.html&#39;</span><span class="p">)</span></div>
+
+
+
+<span class="c1">#_________________________________________________________________________________________________________________________#</span>
+
+<span class="sd">&quot;&quot;&quot;async def publish_deposit_message():</span>
+<span class="sd">    nc = NATS()</span>
+<span class="sd">    await nc.connect(servers=[&quot;10.128.200.7:4222&quot;])</span>
+
+<span class="sd">    message = &quot;test&quot;</span>
+
+<span class="sd">    await nc.publish(&quot;deposit&quot;, message.encode())</span>
+
+<span class="sd">    await nc.close()</span>
+
+<span class="sd">async def publish_verification_message(montant):</span>
+<span class="sd">    if montant &gt; 10000:</span>
+<span class="sd">        await publish_deposit_message()&quot;&quot;&quot;</span>
+
+
+
+
+<div class="viewcode-block" id="depot">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.depot">[docs]</a>
+<span class="k">def</span> <span class="nf">depot</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vue pour effectuer un dépôt sur un compte bancaire en utilisant une connexion directe à une base de données MySQL.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        request : HttpRequest</span>
+<span class="sd">            Objet HttpRequest représentant la requête HTTP reçue.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        HttpResponse</span>
+<span class="sd">            Réponse HTTP pour indiquer le succès de la mise à jour du solde du compte.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        - Si la requête est de type &#39;POST&#39;, récupère l&#39;IBAN et le montant à déposer depuis les données POST.</span>
+<span class="sd">        - Établit une connexion à la base de données MySQL avec les informations de connexion fournies.</span>
+<span class="sd">        - Utilise des fonctions internes pour retrouver le solde du compte associé à l&#39;IBAN, mettre à jour le solde du compte avec le montant déposé, et envoie un message de vérification asynchrone si le montant est supérieur à 10000 euros.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">iban</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;iban&#39;</span><span class="p">)</span>  <span class="c1"># Récupérer l&#39;IBAN à partir des données POST</span>
+        <span class="n">montant</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;montant&#39;</span><span class="p">))</span>  <span class="c1"># Récupérer le montant à partir des données POST</span>
+
+        <span class="n">cnx</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="s2">&quot;toto&quot;</span><span class="p">,</span>
+            <span class="n">database</span><span class="o">=</span><span class="s2">&quot;bankapp&quot;</span><span class="p">,</span>
+            <span class="n">port</span><span class="o">=</span><span class="s2">&quot;3307&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Création d&#39;un curseur pour exécuter des requêtes SQL</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">cnx</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+        <span class="c1"># Fonction pour trouver le solde d&#39;un compte en fonction de son IBAN</span>
+        <span class="k">def</span> <span class="nf">trouver_solde_par_iban</span><span class="p">(</span><span class="n">iban</span><span class="p">):</span>
+
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT solde FROM compte WHERE IBAN = </span><span class="si">%s</span><span class="s2">&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">iban</span><span class="p">,))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+                <span class="n">solde</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">return</span> <span class="n">solde</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Aucun compte trouvé avec l&#39;IBAN </span><span class="si">{</span><span class="n">iban</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Fonction pour mettre à jour le solde d&#39;un compte</span>
+        <span class="k">def</span> <span class="nf">mettre_a_jour_solde</span><span class="p">(</span><span class="n">iban</span><span class="p">,</span> <span class="n">montant</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Met à jour le solde d&#39;un compte bancaire en fonction de l&#39;IBAN et du montant à déposer.</span>
+
+<span class="sd">                Parameters:</span>
+<span class="sd">                -----------</span>
+<span class="sd">                iban : str</span>
+<span class="sd">                    Numéro IBAN du compte bancaire.</span>
+
+<span class="sd">                montant : float</span>
+<span class="sd">                    Montant à déposer sur le compte.</span>
+
+<span class="sd">                Notes:</span>
+<span class="sd">                ------</span>
+<span class="sd">                Cette fonction récupère le solde actuel du compte à partir de l&#39;IBAN spécifié,</span>
+<span class="sd">                ajoute le montant fourni au solde actuel, puis met à jour le solde dans la base de données.</span>
+<span class="sd">                Elle exécute une requête SQL UPDATE pour modifier le solde du compte correspondant à l&#39;IBAN.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">solde</span> <span class="o">=</span> <span class="n">trouver_solde_par_iban</span><span class="p">(</span><span class="n">iban</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">solde</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">solde</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">solde</span><span class="p">)</span>
+                <span class="n">nouveau_solde</span> <span class="o">=</span> <span class="n">solde</span> <span class="o">+</span> <span class="n">montant</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;UPDATE compte SET solde = </span><span class="si">%s</span><span class="s2"> WHERE IBAN = </span><span class="si">%s</span><span class="s2">&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">nouveau_solde</span><span class="p">,</span> <span class="n">iban</span><span class="p">))</span>
+                <span class="n">cnx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Le solde du compte </span><span class="si">{</span><span class="n">iban</span><span class="si">}</span><span class="s2"> a été mis à jour : </span><span class="si">{</span><span class="n">nouveau_solde</span><span class="si">}</span><span class="s2"> euros.&quot;</span><span class="p">)</span>
+
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;if montant &gt; 10000:</span>
+<span class="sd">                    asyncio.run(publish_verification_message(montant))&quot;&quot;&quot;</span>
+
+        <span class="c1"># Exemple d&#39;utilisation : ajout du montant donné au solde d&#39;un compte avec un IBAN spécifique</span>
+        <span class="n">mettre_a_jour_solde</span><span class="p">(</span><span class="n">iban</span><span class="p">,</span> <span class="n">montant</span><span class="p">)</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;asyncio.run(publish_verification_message(montant))&quot;&quot;&quot;</span>
+
+        <span class="c1"># Fermeture du curseur et de la connexion à la base de données</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">cnx</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;Le solde a été mis à jour avec succès.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;Erreur : méthode non autorisée.&quot;</span><span class="p">)</span></div>
+
+
+<span class="c1">#_________________________________________________________________________________________________________________________#</span>
+
+<span class="sd">&quot;&quot;&quot;async def publish_verification_message(montant):</span>
+<span class="sd">    nc = await nats.connect(&quot;ws://10.128.200.7:4222&quot;)</span>
+
+<span class="sd">    async def error_cb(e):</span>
+<span class="sd">        print(&quot;Error:&quot;, e)</span>
+
+<span class="sd">    async def closed_cb():</span>
+<span class="sd">        print(&quot;Connection closed.&quot;)</span>
+
+<span class="sd">    try:</span>
+<span class="sd">        await nc.connect(servers=[&quot;ws://10.128.200.7:4222&quot;], error_cb=error_cb, closed_cb=closed_cb)</span>
+
+<span class="sd">        montant = &quot;10001&quot;</span>
+<span class="sd">        #if montant &gt; 10000:</span>
+<span class="sd">        await nc.publish(&quot;deposit&quot;, float(montant).encode())</span>
+
+<span class="sd">        await nc.flush()</span>
+<span class="sd">        await nc.close()</span>
+
+<span class="sd">    except (ErrConnectionClosed, ErrTimeout) as e:</span>
+<span class="sd">        print(&quot;Error:&quot;, e)&quot;&quot;&quot;</span>
+
+
+
+<div class="viewcode-block" id="retrait">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.retrait">[docs]</a>
+<span class="k">def</span> <span class="nf">retrait</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vue pour effectuer un retrait sur un compte bancaire en utilisant une connexion directe à une base de données MySQL.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        request : HttpRequest</span>
+<span class="sd">            Objet HttpRequest représentant la requête HTTP reçue.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        HttpResponse</span>
+<span class="sd">            Réponse HTTP pour indiquer le succès de la mise à jour du solde du compte.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        - Si la requête est de type &#39;POST&#39;, récupère l&#39;IBAN et le montant à retirer depuis les données POST.</span>
+<span class="sd">        - Établit une connexion à la base de données MySQL avec les informations de connexion fournies.</span>
+<span class="sd">        - Utilise des fonctions internes pour retrouver le solde du compte associé à l&#39;IBAN, mettre à jour le solde du compte avec le montant retiré, et envoie un message de vérification asynchrone si le montant est supérieur à 10000 euros.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">iban</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;iban&#39;</span><span class="p">)</span>  <span class="c1"># Récupérer l&#39;IBAN à partir des données POST</span>
+        <span class="n">montant</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;montant&#39;</span><span class="p">))</span>  <span class="c1"># Récupérer le montant à partir des données POST</span>
+
+        <span class="n">cnx</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="s2">&quot;toto&quot;</span><span class="p">,</span>
+            <span class="n">database</span><span class="o">=</span><span class="s2">&quot;bankapp&quot;</span><span class="p">,</span>
+            <span class="n">port</span><span class="o">=</span><span class="s2">&quot;3307&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Création d&#39;un curseur pour exécuter des requêtes SQL</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">cnx</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+        <span class="c1"># Fonction pour trouver le solde d&#39;un compte en fonction de son IBAN</span>
+        <span class="k">def</span> <span class="nf">trouver_solde_par_iban</span><span class="p">(</span><span class="n">iban</span><span class="p">):</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT solde FROM compte WHERE IBAN = </span><span class="si">%s</span><span class="s2">&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">iban</span><span class="p">,))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+                <span class="n">solde</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">return</span> <span class="n">solde</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Aucun compte trouvé avec l&#39;IBAN </span><span class="si">{</span><span class="n">iban</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Fonction pour mettre à jour le solde d&#39;un compte</span>
+        <span class="k">def</span> <span class="nf">mettre_a_jour_solde</span><span class="p">(</span><span class="n">iban</span><span class="p">,</span> <span class="n">montant</span><span class="p">):</span>
+            <span class="n">solde</span> <span class="o">=</span> <span class="n">trouver_solde_par_iban</span><span class="p">(</span><span class="n">iban</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">solde</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">solde</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">solde</span><span class="p">)</span>
+                <span class="n">nouveau_solde</span> <span class="o">=</span> <span class="n">solde</span> <span class="o">-</span> <span class="n">montant</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;UPDATE compte SET solde = </span><span class="si">%s</span><span class="s2"> WHERE IBAN = </span><span class="si">%s</span><span class="s2">&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">nouveau_solde</span><span class="p">,</span> <span class="n">iban</span><span class="p">))</span>
+                <span class="n">cnx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Le solde du compte </span><span class="si">{</span><span class="n">iban</span><span class="si">}</span><span class="s2"> a été mis à jour : </span><span class="si">{</span><span class="n">nouveau_solde</span><span class="si">}</span><span class="s2"> euros.&quot;</span><span class="p">)</span>
+
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;if montant &gt; 10000:</span>
+<span class="sd">                    asyncio.run(publish_verification_message(montant))&quot;&quot;&quot;</span>
+
+        <span class="c1"># Exemple d&#39;utilisation : ajout du montant donné au solde d&#39;un compte avec un IBAN spécifique</span>
+        <span class="n">mettre_a_jour_solde</span><span class="p">(</span><span class="n">iban</span><span class="p">,</span> <span class="n">montant</span><span class="p">)</span>
+
+        <span class="c1"># Fermeture du curseur et de la connexion à la base de données</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">cnx</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;Le solde a été mis à jour avec succès.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;Erreur : méthode non autorisée.&quot;</span><span class="p">)</span></div>
+
+
+<span class="c1">#_________________________________________________________________________________________________________________________#</span>
+
+<div class="viewcode-block" id="get_comptes_by_client_id">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.get_comptes_by_client_id">[docs]</a>
+<span class="k">def</span> <span class="nf">get_comptes_by_client_id</span><span class="p">(</span><span class="n">client_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère les comptes associés à un client spécifique depuis la base de données.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        client_id : int</span>
+<span class="sd">            Identifiant du client pour lequel récupérer les comptes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        list</span>
+<span class="sd">            Liste des comptes associés au client spécifié.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        Établit une connexion à la base de données MySQL avec les informations de connexion fournies.</span>
+<span class="sd">        Exécute une requête SQL SELECT pour récupérer tous les comptes liés à un client par son identifiant.</span>
+<span class="sd">        Ferme le curseur et la connexion à la base de données après avoir récupéré les comptes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cnx</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=</span><span class="s2">&quot;toto&quot;</span><span class="p">,</span>
+        <span class="n">database</span><span class="o">=</span><span class="s2">&quot;bank&quot;</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="s2">&quot;3307&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">cnx</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM compte WHERE client_id = </span><span class="si">%s</span><span class="s2">&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">client_id</span><span class="p">,))</span>
+    <span class="n">comptes</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">cnx</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">comptes</span></div>
+
+
+<span class="c1"># Vue pour la page avec le formulaire et les résultats des comptes</span>
+<div class="viewcode-block" id="compte_list">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.compte_list">[docs]</a>
+<span class="k">def</span> <span class="nf">compte_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Affiche une liste de comptes associés à un client spécifique.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        request : HttpRequest</span>
+<span class="sd">            Objet HttpRequest représentant la requête HTTP reçue.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        HttpResponse</span>
+<span class="sd">            Réponse HTTP avec la liste des comptes associés au client spécifié.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        Si la méthode de la requête est &#39;POST&#39;, récupère l&#39;identifiant du client à partir des données POST.</span>
+<span class="sd">        Appelle la fonction &#39;get_comptes_by_client_id&#39; pour obtenir la liste des comptes associés à ce client.</span>
+<span class="sd">        Si aucun compte n&#39;est trouvé pour l&#39;identifiant du client, un message spécifique est affiché.</span>
+<span class="sd">        Renvoie un rendu HTML avec la liste des comptes et le message, à afficher sur la page &#39;compte_list.html&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">comptes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">client_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;client_id&#39;</span><span class="p">)</span>
+        <span class="n">comptes</span> <span class="o">=</span> <span class="n">get_comptes_by_client_id</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">comptes</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Aucun compte trouvé pour l&#39;ID du client </span><span class="si">{</span><span class="n">client_id</span><span class="si">}</span><span class="s2">.&quot;</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;comptes&#39;</span><span class="p">:</span> <span class="n">comptes</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="n">message</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;bankapp/compte_list.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+
+<span class="c1">#_________________________________________________________________________________________________________________________#</span>
+
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">import</span> <span class="nn">mysql.connector</span>
+
+<span class="c1"># Connexion à la base de données</span>
+<span class="n">cnx</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;toto&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;bankapp&quot;</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="s2">&quot;3307&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Création d&#39;un curseur pour exécuter des requêtes SQL</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">cnx</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<div class="viewcode-block" id="get_solde_by_iban">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.get_solde_by_iban">[docs]</a>
+<span class="k">def</span> <span class="nf">get_solde_by_iban</span><span class="p">(</span><span class="n">iban</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère le solde d&#39;un compte bancaire en fonction de son IBAN dans la base de données.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        iban : str</span>
+<span class="sd">            Numéro d&#39;identification bancaire (IBAN) du compte.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        float or None</span>
+<span class="sd">            Solde du compte associé à l&#39;IBAN spécifié. Renvoie None si aucun compte n&#39;est trouvé.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        Exécute une requête SQL SELECT pour récupérer le solde du compte associé à l&#39;IBAN fourni.</span>
+<span class="sd">        Si un compte est trouvé pour l&#39;IBAN, renvoie le solde du compte. Sinon, affiche un message d&#39;erreur</span>
+<span class="sd">        indiquant qu&#39;aucun compte n&#39;a été trouvé avec l&#39;IBAN spécifié.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT solde FROM compte WHERE IBAN = </span><span class="si">%s</span><span class="s2">&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">iban</span><span class="p">,))</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="n">solde</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">solde</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Aucun compte trouvé avec l&#39;IBAN </span><span class="si">{</span><span class="n">iban</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="mettre_a_jour_solde">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.mettre_a_jour_solde">[docs]</a>
+<span class="k">def</span> <span class="nf">mettre_a_jour_solde</span><span class="p">(</span><span class="n">iban</span><span class="p">,</span> <span class="n">montant</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Met à jour le solde d&#39;un compte bancaire en fonction de son IBAN en ajoutant un montant.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        iban : str</span>
+<span class="sd">            Numéro d&#39;identification bancaire (IBAN) du compte à mettre à jour.</span>
+<span class="sd">        montant : float</span>
+<span class="sd">            Montant à ajouter au solde du compte.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        Récupère le solde du compte associé à l&#39;IBAN en utilisant la fonction &#39;get_solde_by_iban&#39;.</span>
+<span class="sd">        Si un compte est trouvé, le montant spécifié est ajouté au solde du compte.</span>
+<span class="sd">        Exécute une requête SQL UPDATE pour mettre à jour le solde du compte dans la base de données.</span>
+<span class="sd">        Affiche un message indiquant que le solde du compte a été mis à jour avec succès.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">solde</span> <span class="o">=</span> <span class="n">get_solde_by_iban</span><span class="p">(</span><span class="n">iban</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">solde</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">solde</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">solde</span><span class="p">)</span>
+        <span class="n">nouveau_solde</span> <span class="o">=</span> <span class="n">solde</span> <span class="o">+</span> <span class="n">montant</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;UPDATE compte SET solde = </span><span class="si">%s</span><span class="s2"> WHERE IBAN = </span><span class="si">%s</span><span class="s2">&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">nouveau_solde</span><span class="p">,</span> <span class="n">iban</span><span class="p">))</span>
+        <span class="n">cnx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Le solde du compte </span><span class="si">{</span><span class="n">iban</span><span class="si">}</span><span class="s2"> a été mis à jour : </span><span class="si">{</span><span class="n">nouveau_solde</span><span class="si">}</span><span class="s2"> euros.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="versement">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.versement">[docs]</a>
+<span class="k">def</span> <span class="nf">versement</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Traite une opération de versement entre deux comptes bancaires.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        request : HttpRequest</span>
+<span class="sd">            Objet HttpRequest représentant la requête HTTP reçue.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        HttpResponse</span>
+<span class="sd">            Rendu HTML de la page &#39;index.html&#39;.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        Si la méthode de la requête est &#39;POST&#39;, récupère les IBAN et le montant depuis les données POST.</span>
+<span class="sd">        Utilise la fonction &#39;mettre_a_jour_solde&#39; pour débiter le montant de l&#39;IBAN source et créditer</span>
+<span class="sd">        le montant à l&#39;IBAN cible.</span>
+<span class="sd">        Renvoie le rendu HTML de la page &#39;index.html&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">iban_source</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;iban_source&#39;</span><span class="p">)</span>
+        <span class="n">iban_cible</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;iban_cible&#39;</span><span class="p">)</span>
+        <span class="n">montant</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;montant&#39;</span><span class="p">))</span>
+
+        <span class="n">mettre_a_jour_solde</span><span class="p">(</span><span class="n">iban_source</span><span class="p">,</span> <span class="o">-</span><span class="n">montant</span><span class="p">)</span>
+        <span class="n">mettre_a_jour_solde</span><span class="p">(</span><span class="n">iban_cible</span><span class="p">,</span> <span class="n">montant</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;bankapp/index.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;bankapp/index.html&#39;</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># _________________________________________________________________________________________________________________________#</span>
+
+
+<span class="sd">&quot;&quot;&quot;def login_view(request):</span>
+<span class="sd">    if request.method == &#39;POST&#39;:</span>
+<span class="sd">        username = request.POST.get(&#39;username&#39;)</span>
+<span class="sd">        password = request.POST.get(&#39;password&#39;)</span>
+<span class="sd">        user = authenticate(request, username=username, password=password)</span>
+<span class="sd">        if user is not None:</span>
+<span class="sd">            login(request, user)</span>
+<span class="sd">            return redirect(&#39;accueil&#39;)  # Rediriger vers la page d&#39;accueil après la connexion</span>
+<span class="sd">        else:</span>
+<span class="sd">            error_message = &quot;Identifiants invalides. Veuillez réessayer.&quot;</span>
+<span class="sd">            return render(request, &#39;login.html&#39;, {&#39;error_message&#39;: error_message})</span>
+<span class="sd">    else:</span>
+<span class="sd">        return render(request, &#39;login.html&#39;)&quot;&quot;&quot;</span>
+
+
+<span class="c1"># _________________________________________________________________________________________________________________________#</span>
+
+<div class="viewcode-block" id="rechercher_comptes">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.views.rechercher_comptes">[docs]</a>
+<span class="k">def</span> <span class="nf">rechercher_comptes</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recherche et génère un fichier CSV contenant les informations des comptes associés à un client.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        request : HttpRequest</span>
+<span class="sd">            Objet HttpRequest représentant la requête HTTP reçue.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        HttpResponse</span>
+<span class="sd">            Réponse HTTP avec un fichier CSV contenant les informations des comptes du client en téléchargement.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">        ------</span>
+<span class="sd">        Si la méthode de la requête est &#39;POST&#39;, récupère l&#39;ID du client depuis les données POST.</span>
+<span class="sd">        Utilise la fonction &#39;filter&#39; pour obtenir tous les comptes associés à ce client.</span>
+<span class="sd">        Génère un fichier CSV contenant les IBAN et les soldes de chaque compte du client.</span>
+<span class="sd">        Renvoie une réponse HTTP avec le fichier CSV en téléchargement ou rend la page &#39;index.html&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">client_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;client_id&#39;</span><span class="p">)</span>
+        <span class="n">comptes</span> <span class="o">=</span> <span class="n">Compte</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">client_id</span><span class="o">=</span><span class="n">client_id</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">content_type</span><span class="o">=</span><span class="s1">&#39;text/csv&#39;</span><span class="p">)</span>
+        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;attachment; filename=&quot;comptes_client_</span><span class="si">{}</span><span class="s1">.csv&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>
+
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>  <span class="c1"># Utilisation du délimiteur d&#39;espace</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s1">&#39;IBAN&#39;</span><span class="p">,</span> <span class="s1">&#39;Solde&#39;</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">compte</span> <span class="ow">in</span> <span class="n">comptes</span><span class="p">:</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">compte</span><span class="o">.</span><span class="n">IBAN</span><span class="p">,</span> <span class="n">compte</span><span class="o">.</span><span class="n">solde</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">response</span>
+
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;bankapp/index.html&#39;</span><span class="p">)</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur 2023, Bastien DIDIERJEAN.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

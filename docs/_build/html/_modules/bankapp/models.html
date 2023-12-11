@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bankapp.models &mdash; Documentation Ci_CD 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=05dadb3a"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/translations.js?v=d99ca74e"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Ci_CD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">bank</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Ci_CD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Code du module</a></li>
+      <li class="breadcrumb-item active">bankapp.models</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Code source de bankapp.models</h1><div class="highlight"><pre>
+<span></span><span class="c1"># This is an auto-generated Django model module.</span>
+<span class="c1"># You&#39;ll have to do the following manually to clean this up:</span>
+<span class="c1">#   * Rearrange models&#39; order</span>
+<span class="c1">#   * Make sure each model has one field with primary_key=True</span>
+<span class="c1">#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior</span>
+<span class="c1">#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table</span>
+<span class="c1"># Feel free to rename the models, but don&#39;t rename db_table values or field names.</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ValidationError</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">django.utils</span> <span class="kn">import</span> <span class="n">timezone</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">AbstractUser</span>
+
+
+<div class="viewcode-block" id="Client">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.forms.Client">[docs]</a>
+<span class="k">class</span> <span class="nc">Client</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modèle de données pour représenter un client.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        nom : str</span>
+<span class="sd">            Nom du client (maximum 75 caractères).</span>
+
+<span class="sd">        prenom : str</span>
+<span class="sd">            Prénom du client (maximum 75 caractères).</span>
+
+<span class="sd">        sexe : str</span>
+<span class="sd">            Genre du client, choix entre &#39;Homme&#39; ou &#39;Femme&#39; (maximum 10 caractères).</span>
+
+<span class="sd">        email : str</span>
+<span class="sd">            Adresse email du client (maximum 100 caractères).</span>
+
+<span class="sd">        nom_utilisateur : str</span>
+<span class="sd">            Nom d&#39;utilisateur du client (maximum 50 caractères).</span>
+
+<span class="sd">        mdp : str</span>
+<span class="sd">            Mot de passe du client (maximum 50 caractères).</span>
+
+<span class="sd">        Meta:</span>
+<span class="sd">        -----</span>
+<span class="sd">        db_table : str</span>
+<span class="sd">            Nom de la table de base de données associée à ce modèle (table &#39;client&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#id = models.IntegerField(primary_key=True)</span>
+    <span class="n">nom</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">prenom</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">SEXE_CHOICES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;Homme&#39;</span><span class="p">,</span> <span class="s1">&#39;Homme&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Femme&#39;</span><span class="p">,</span> <span class="s1">&#39;Femme&#39;</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="n">sexe</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">SEXE_CHOICES</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">nom_utilisateur</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mdp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;client&#39;</span></div>
+
+
+
+<span class="sd">&quot;&quot;&quot;class Client(AbstractUser):</span>
+<span class="sd">    nom_utilisateur = models.CharField(max_length=150, unique=True)</span>
+<span class="sd">    mdp = models.CharField(max_length=128)</span>
+
+<span class="sd">    USERNAME_FIELD = &#39;nom_utilisateur&#39;</span>
+<span class="sd">    REQUIRED_FIELDS = [&#39;email&#39;]  # Ajoutez ici les champs requis pour la création d&#39;un utilisateur</span>
+
+<span class="sd">    def __str__(self):</span>
+<span class="sd">        return self.nom_utilisateur&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="Compte">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.forms.Compte">[docs]</a>
+<span class="k">class</span> <span class="nc">Compte</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modèle de données pour représenter un compte.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        IBAN : str</span>
+<span class="sd">            Numéro IBAN du compte (maximum 50 caractères), unique dans la base de données.</span>
+
+<span class="sd">        client : Client</span>
+<span class="sd">            Référence au client associé à ce compte (clé étrangère vers le modèle Client).</span>
+
+<span class="sd">        solde : Decimal</span>
+<span class="sd">            Solde du compte (maximum 10 chiffres avant la virgule et 2 chiffres après la virgule).</span>
+<span class="sd">            La valeur par défaut est 0.00.</span>
+
+<span class="sd">        date : datetime</span>
+<span class="sd">            Date de création du compte (remplie automatiquement lors de la création).</span>
+
+<span class="sd">        Meta:</span>
+<span class="sd">        -----</span>
+<span class="sd">        db_table : str</span>
+<span class="sd">            Nom de la table de base de données associée à ce modèle (table &#39;compte&#39;).</span>
+
+<span class="sd">        Methods:</span>
+<span class="sd">        --------</span>
+<span class="sd">        __str__():</span>
+<span class="sd">            Renvoie l&#39;IBAN du compte sous forme de chaîne.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#id = models.IntegerField(primary_key=True)</span>
+    <span class="n">IBAN</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Client</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">solde</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.00</span><span class="p">)</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;compte&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">iban</span></div>
+
+
+
+<div class="viewcode-block" id="Personnel">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.forms.Personnel">[docs]</a>
+<span class="k">class</span> <span class="nc">Personnel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modèle de données pour représenter le personnel.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        nom : str</span>
+<span class="sd">            Nom du personnel (maximum 75 caractères).</span>
+
+<span class="sd">        prenom : str</span>
+<span class="sd">            Prénom du personnel (maximum 75 caractères).</span>
+
+<span class="sd">        email : str</span>
+<span class="sd">            Adresse email du personnel (maximum 100 caractères).</span>
+
+<span class="sd">        date_arrive : datetime</span>
+<span class="sd">            Date d&#39;arrivée du personnel (peut être vide).</span>
+
+<span class="sd">        nom_utilisateur : str</span>
+<span class="sd">            Nom d&#39;utilisateur du personnel (maximum 50 caractères).</span>
+
+<span class="sd">        mdp : str</span>
+<span class="sd">            Mot de passe du personnel (maximum 50 caractères).</span>
+
+<span class="sd">        Meta:</span>
+<span class="sd">        -----</span>
+<span class="sd">        db_table : str</span>
+<span class="sd">            Nom de la table de base de données associée à ce modèle (table &#39;personnel&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#id = models.IntegerField(primary_key=True)</span>
+    <span class="n">nom</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">prenom</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">date_arrive</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">nom_utilisateur</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mdp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;personnel&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="Transaction">
+<a class="viewcode-back" href="../../bankapp.html#bankapp.forms.Transaction">[docs]</a>
+<span class="k">class</span> <span class="nc">Transaction</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modèle de données pour représenter une transaction entre deux comptes.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        compte_source : Compte</span>
+<span class="sd">            Compte source de la transaction (clé étrangère vers le modèle Compte).</span>
+
+<span class="sd">        compte_cible : Compte</span>
+<span class="sd">            Compte cible de la transaction (clé étrangère vers le modèle Compte).</span>
+
+<span class="sd">        montant : Decimal</span>
+<span class="sd">            Montant de la transaction (maximum 10 chiffres avant la virgule et 2 chiffres après la virgule).</span>
+
+<span class="sd">        type : str</span>
+<span class="sd">            Type de transaction (maximum 25 caractères).</span>
+
+<span class="sd">        Meta:</span>
+<span class="sd">        -----</span>
+<span class="sd">        db_table : str</span>
+<span class="sd">            Nom de la table de base de données associée à ce modèle (table &#39;transaction&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#id = models.IntegerField(primary_key=True)</span>
+    <span class="n">compte_source</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Compte</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">DO_NOTHING</span><span class="p">,</span> <span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;compte_source&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;transactions_source&#39;</span><span class="p">)</span>
+    <span class="n">compte_cible</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Compte</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">DO_NOTHING</span><span class="p">,</span> <span class="n">db_column</span><span class="o">=</span><span class="s1">&#39;compte_cible&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;transactions_cible&#39;</span><span class="p">)</span>
+    <span class="n">montant</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;transaction&#39;</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur 2023, Bastien DIDIERJEAN.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
