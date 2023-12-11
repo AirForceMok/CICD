@@ -1,0 +1,53 @@
+stages:
+  - build
+  - test
+  - deploy
+  - documentation
+
+build-job:
+  stage: build
+  image: python:3.9  # Utilisation d'une image Docker avec Python 3.9 test 
+  before_script:
+    - python -m venv venv  # Créer un environnement virtuel
+    - source venv/bin/activate  # Activer l'environnement virtuel
+  script:
+    - pip install --upgrade pip  # Mettre à jour pip
+    - pip install -r requirements.txt  # Installer les dépendances
+  artifacts:
+    paths:
+      - venv/  # Enregistrer l'environnement virtuel pour les jobs ultérieurs
+
+test-job:
+  stage: test
+  script:
+    - echo "Activating virtual environment..."
+    - source $(pwd)/venv/bin/activate
+    - echo "Running unit tests..."
+    - python manage.py test budget
+    - echo "Checking the server..."
+    - python manage.py runserver &
+    - sleep 10
+    - curl -sSf http://localhost:8000 > /dev/null && echo "Server is Up"
+    - sudo pkill python
+    - deactivate
+    - echo "All tests successfully passed."
+
+variables:
+  CONTAINER_IMAGE: $CI_REGISTRY_IMAGE:$CI_PIPELINE_IID
+
+
+# Deploy petclinic d 
+deploy-job:
+  stage: deploy
+  before_script:
+    - chmod 400 $SSH_KEY
+  script:
+    - echo "Deploying to the remote server..."
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY proxmox@192.168.0.137 "
+        docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+        docker pull $CONTAINER_IMAGE &&
+        docker stop your_container_name || true &&
+        docker rm your_container_name || true &&
+        docker run -d -p 5000:8000 --name your_container_name $CONTAINER_IMAGE"
+
+
